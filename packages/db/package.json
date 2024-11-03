@@ -16,7 +16,6 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "MIT",
 	"dependencies": {
 		"@types/node": "^20.17.0",
 		"dotenv": "^16.4.5",

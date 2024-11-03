@@ -2,7 +2,6 @@
 	"name": "server",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
 	"type": "module",
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
@@ -11,11 +10,11 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
 	"dependencies": {
 		"fastify": "^5.0.0",
 		"pino-pretty": "^11.3.0",
-		"resolve-tspaths": "^0.8.22"
+		"resolve-tspaths": "^0.8.22",
+		"@awesome-lms/db": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/node": "^20.17.0",
