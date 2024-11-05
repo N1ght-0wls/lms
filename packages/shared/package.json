@@ -1,0 +1,30 @@
+{
+	"name": "@awesome-lms/shared",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist/**"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsup src/index.ts --format esm,cjs --dts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"tsup": "^8.3.0"
+	},
+	"devDependencies": {
+		"typescript": "5.6.3",
+		"zod": "^3.23.8"
+	},
+	"peerDependencies": {
+		"zod": "^3.23.8"
+	},
+	"private": true
+}

@@ -11,10 +11,25 @@
 	"keywords": [],
 	"author": "",
 	"dependencies": {
+		"@awesome-lms/db": "workspace:*",
+		"@awesome-lms/shared": "workspace:*",
+		"@fastify/auth": "^5.0.1",
+		"@fastify/awilix": "^6.0.1",
+		"@fastify/cookie": "^11.0.1",
+		"@fastify/cors": "^10.0.1",
+		"@fastify/helmet": "^12.0.1",
+		"@fastify/jwt": "^9.0.1",
+		"@fastify/rate-limit": "^10.1.1",
+		"@fastify/swagger": "^9.2.0",
+		"@fastify/swagger-ui": "^5.1.0",
+		"@node-rs/argon2": "^2.0.0",
+		"awilix": "^12.0.3",
+		"dotenv": "^16.4.5",
 		"fastify": "^5.0.0",
+		"fastify-type-provider-zod": "^4.0.2",
 		"pino-pretty": "^11.3.0",
 		"resolve-tspaths": "^0.8.22",
-		"@awesome-lms/db": "workspace:*"
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@types/node": "^20.17.0",

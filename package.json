@@ -8,8 +8,11 @@
 		"start": "nx run-many -t start",
 		"client:dev": "nx run client:dev",
 		"server:dev": "nx run server:dev",
-		"db:generate": "nx run @awesome-lms/db:build && nx run @awesome-lms/db:generate",
+		"db:build": "nx run @awesome-lms/db:build",
+		"db:generate": "nx run @awesome-lms/db:generate",
+		"db:build:generate": "pnpm db:build && pnpm db:generate",
 		"db:push": "nx run @awesome-lms/db:push",
+		"shared:build": "nx run @awesome-lms/shared:build",
 		"lint": "eslint .",
 		"format": "prettier --write .",
 		"prepare": "husky"
