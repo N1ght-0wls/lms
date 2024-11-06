@@ -58,7 +58,7 @@ export const getApp = async (): Promise<AppInstanse> => {
 		}),
 		openapi: {
 			info: {
-				title: 'SkillSwap Backend',
+				title: 'Awesome LMS Backend',
 				description: 'Sample backend',
 				version: '0.0.0',
 			},
@@ -66,7 +66,7 @@ export const getApp = async (): Promise<AppInstanse> => {
 	})
 
 	await app.register(fastifySwaggerUi, {
-		routePrefix: '/documentation',
+		routePrefix: '/api',
 	})
 
 	await app.register(fastifyHelmet)

@@ -1,4 +1,4 @@
-import { readBearerToken } from '@/utils/auth.js'
+import { readBearerToken } from '@/modules/auth/utils/index.js'
 import { JwtPayload } from '@awesome-lms/shared'
 import { FastifyReply, FastifyRequest } from 'fastify'
 

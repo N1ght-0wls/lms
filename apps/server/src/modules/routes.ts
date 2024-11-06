@@ -1,14 +1,16 @@
 import { Routes } from '@/interfaces/index.js'
 import { AppInstanse } from '@/types/index.js'
 import { FastifyReply, FastifyRequest } from 'fastify'
+import { getAuthRoutes } from './auth/routes/index.js'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getRoutes = (app: AppInstanse): Routes => {
+	const { routes: authRoutes } = getAuthRoutes(app)
+
 	return {
 		routes: [
 			{
-				method: 'POST',
-				url: '/ping',
+				method: 'GET',
+				url: '/api/ping',
 				handler: async (
 					request: FastifyRequest,
 					reply: FastifyReply,
@@ -16,6 +18,7 @@ export const getRoutes = (app: AppInstanse): Routes => {
 					reply.status(200).send({ message: 'pong' })
 				},
 			},
+			...authRoutes,
 		],
 	}
 }
