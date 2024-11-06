@@ -13,6 +13,7 @@
 		"db:build:generate": "pnpm db:build && pnpm db:generate",
 		"db:push": "nx run @awesome-lms/db:push",
 		"shared:build": "nx run @awesome-lms/shared:build",
+		"app:prepare": "pnpm shared:build && pnpm db:build:generate",
 		"lint": "eslint .",
 		"format": "prettier --write .",
 		"prepare": "husky"
