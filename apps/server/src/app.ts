@@ -38,7 +38,7 @@ export const getApp = async (): Promise<AppInstanse> => {
 	app.setSerializerCompiler(serializerCompiler)
 
 	await app.register(fastifyCors, {
-		origin: 'http://localhost:3000',
+		origin: 'http://localhost:5174',
 		credentials: true,
 		methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
 	})
