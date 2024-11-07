@@ -6,6 +6,7 @@ import { users } from './users.js'
 import { courseGroups } from './course-groups.js'
 import { assignmentParticipants } from './assignment-participants.js'
 import { participantAssignments } from './participant-assignments.js'
+import { announcements } from './announcements.js'
 
 export const participants = pgTable('participants', {
 	id: serial().primaryKey(),
@@ -40,5 +41,6 @@ export const participantsRelations = relations(
 		}),
 		assigmentGroups: many(assignmentParticipants),
 		assigments: many(participantAssignments),
+		announcements: many(announcements),
 	}),
 )
