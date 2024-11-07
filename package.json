@@ -25,7 +25,7 @@
 	"author": "Night Owls Team",
 	"license": "MIT",
 	"engines": {
-		"node": ">=20.x.x"
+		"node": ">=22.x.x"
 	},
 	"lint-staged": {
 		"**/*.{js,ts,tsx}": [

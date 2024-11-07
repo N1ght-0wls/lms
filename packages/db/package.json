@@ -24,12 +24,12 @@
 	"author": "",
 	"dependencies": {
 		"@awesome-lms/shared": "workspace:*",
-		"@types/node": "^20.17.1",
 		"dotenv": "^16.4.5",
 		"postgres": "^3.4.5",
 		"tsup": "^8.3.5"
 	},
 	"devDependencies": {
+		"@types/node": "^22.9.0",
 		"drizzle-kit": "^0.26.2",
 		"drizzle-orm": "^0.35.3",
 		"tsx": "^4.19.2",
