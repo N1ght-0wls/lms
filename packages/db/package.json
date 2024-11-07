@@ -17,7 +17,8 @@
 	"scripts": {
 		"build": "tsc",
 		"generate": "drizzle-kit generate",
-		"push": "drizzle-kit push"
+		"push": "drizzle-kit push",
+		"migrate": "drizzle-kit migrate"
 	},
 	"keywords": [],
 	"author": "",

@@ -1,8 +1,15 @@
 import { relations } from 'drizzle-orm'
-import { pgTable, serial, timestamp, varchar } from 'drizzle-orm/pg-core'
+import {
+	boolean,
+	pgTable,
+	serial,
+	timestamp,
+	varchar,
+} from 'drizzle-orm/pg-core'
 import { courseGroups } from './course-groups.js'
 import { topics } from './topics.js'
 import { forums } from './forums.js'
+import { announcements } from './announcements.js'
 
 export const courses = pgTable('courses', {
 	id: serial().primaryKey(),
@@ -10,10 +17,15 @@ export const courses = pgTable('courses', {
 	endedAt: timestamp('ended_at', { withTimezone: true }).notNull(),
 	name: varchar({ length: 255 }).unique().notNull(),
 	img: varchar({ length: 255 }).notNull(),
+	areForumsEnabled: boolean('are_forums_enabled').notNull().default(true),
+	areAnnouncementsEnabled: boolean('are_announcements_enabled')
+		.notNull()
+		.default(true),
 })
 
 export const coursesRelations = relations(courses, ({ many }) => ({
 	groups: many(courseGroups),
 	topics: many(topics),
 	forums: many(forums),
+	announcements: many(announcements),
 }))
