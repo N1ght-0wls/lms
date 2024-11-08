@@ -1,29 +1,51 @@
 <script setup lang="ts">
 import { Button } from '@/core/components/ui/button'
-import { FormField } from '@/core/components/ui/form'
-import FormItem from '@/core/components/ui/form/FormItem.vue'
-import FormLabel from '@/core/components/ui/form/FormLabel.vue'
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from '@/core/components/ui/card'
+import {
+	FormField,
+	FormItem,
+	FormLabel,
+	FormControl,
+	FormMessage,
+} from '@/core/components/ui/form'
 import { Input } from '@/core/components/ui/input'
-import { Label } from '@/core/components/ui/label'
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import { LOGIN_SCHEMA } from '@awesome-lms/shared'
+
+const { handleSubmit, values } = useForm({
+	validationSchema: toTypedSchema(LOGIN_SCHEMA),
+})
+
+const onSubmit = handleSubmit((values) => {
+	console.log(values)
+})
 </script>
 
 <template>
 	<div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
 		<div class="flex items-center justify-center py-12">
 			<div class="mx-auto grid w-[350px] gap-6">
-				<div class="grid gap-2 text-center">
-					<h1 class="text-3xl font-bold">Login</h1>
-					<p class="text-balance text-muted-foreground">
+				<CardHeader class="grid gap-2 text-center">
+					<CardTitle class="text-3xl font-bold">Login</CardTitle>
+					<CardDescription class="text-balance text-muted-foreground">
 						Enter your email below to login to your account
-					</p>
-				</div>
-				<form class="grid gap-4">
+					</CardDescription>
+				</CardHeader>
+				<form class="grid gap-4" @submit="onSubmit">
 					<FormField name="Email" v-slot="{ componentField }">
 						<FormItem class="grid gap-2">
 							<FormLabel>Email</FormLabel>
-							<FromControl>
+							<FormControl>
 								<Input id="email" type="email" placeholder="m@example.com" />
-							</FromControl>
+							</FormControl>
+							<FormMessage />
 						</FormItem>
 					</FormField>
 
@@ -38,9 +60,9 @@ import { Label } from '@/core/components/ui/label'
 									Forgot your password?
 								</a>
 							</FormLabel>
-							<FromControl>
+							<FormControl>
 								<Input id="password" type="password" placeholder="password" />
-							</FromControl>
+							</FormControl>
 						</FormItem>
 					</FormField>
 					<Button type="submit" class="w-full"> Login </Button>
