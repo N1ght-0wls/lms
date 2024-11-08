@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from '@/core/components/ui/button'
+import { FormField } from '@/core/components/ui/form'
+import FormItem from '@/core/components/ui/form/FormItem.vue'
+import FormLabel from '@/core/components/ui/form/FormLabel.vue'
+import { Input } from '@/core/components/ui/input'
+import { Label } from '@/core/components/ui/label'
 </script>
 
 <template>
@@ -14,31 +17,35 @@ import { Label } from '@/components/ui/label'
 						Enter your email below to login to your account
 					</p>
 				</div>
-				<div class="grid gap-4">
-					<div class="grid gap-2">
-						<Label for="email">Email</Label>
-						<Input
-							id="email"
-							type="email"
-							placeholder="m@example.com"
-							required
-						/>
-					</div>
-					<div class="grid gap-2">
-						<div class="flex items-center">
-							<Label for="password">Password</Label>
-							<a
-								href="/forgot-password"
-								class="ml-auto inline-block text-sm underline"
-							>
-								Forgot your password?
-							</a>
-						</div>
-						<Input id="password" type="password" required />
-					</div>
+				<form class="grid gap-4">
+					<FormField name="Email" v-slot="{ componentField }">
+						<FormItem class="grid gap-2">
+							<FormLabel>Email</FormLabel>
+							<FromControl>
+								<Input id="email" type="email" placeholder="m@example.com" />
+							</FromControl>
+						</FormItem>
+					</FormField>
+
+					<FormField name="Email" v-slot="{ componentField }">
+						<FormItem class="grid gap-2">
+							<FormLabel class="flex items-center"
+								>Password
+								<a
+									href="/forgot-password"
+									class="ml-auto inline-block text-sm underline"
+								>
+									Forgot your password?
+								</a>
+							</FormLabel>
+							<FromControl>
+								<Input id="password" type="password" placeholder="password" />
+							</FromControl>
+						</FormItem>
+					</FormField>
 					<Button type="submit" class="w-full"> Login </Button>
 					<Button variant="outline" class="w-full"> Login with Google </Button>
-				</div>
+				</form>
 				<div class="mt-4 text-center text-sm">
 					Don't have an account?
 					<a href="#" class="underline"> Sign up </a>
@@ -47,7 +54,6 @@ import { Label } from '@/components/ui/label'
 		</div>
 		<div class="hidden bg-muted lg:block">
 			<img
-				src="/placeholder.svg"
 				alt="Image"
 				width="1920"
 				height="1080"
