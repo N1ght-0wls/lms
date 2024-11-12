@@ -41,7 +41,7 @@ const onSubmit = handleSubmit((values) => {
 				<form class="grid gap-4" @submit="onSubmit">
 					<FormField name="Email" v-slot="{ componentField }">
 						<FormItem class="grid gap-2">
-							<FormLabel>Email</FormLabel>
+							<FormLabel>email</FormLabel>
 							<FormControl>
 								<Input id="email" type="email" placeholder="m@example.com" />
 							</FormControl>
@@ -52,7 +52,7 @@ const onSubmit = handleSubmit((values) => {
 					<FormField name="Email" v-slot="{ componentField }">
 						<FormItem class="grid gap-2">
 							<FormLabel class="flex items-center"
-								>Password
+								>password
 								<a
 									href="/forgot-password"
 									class="ml-auto inline-block text-sm underline"
@@ -66,7 +66,6 @@ const onSubmit = handleSubmit((values) => {
 						</FormItem>
 					</FormField>
 					<Button type="submit" class="w-full"> Login </Button>
-					<Button variant="outline" class="w-full"> Login with Google </Button>
 				</form>
 				<div class="mt-4 text-center text-sm">
 					Don't have an account?
@@ -76,6 +75,7 @@ const onSubmit = handleSubmit((values) => {
 		</div>
 		<div class="hidden bg-muted lg:block">
 			<img
+				src="/img/cover.webp"
 				alt="Image"
 				width="1920"
 				height="1080"
