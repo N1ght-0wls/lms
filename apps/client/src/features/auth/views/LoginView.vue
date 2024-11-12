@@ -39,20 +39,25 @@ const onSubmit = handleSubmit((values) => {
 					</CardDescription>
 				</CardHeader>
 				<form class="grid gap-4" @submit="onSubmit">
-					<FormField name="Email" v-slot="{ componentField }">
+					<FormField name="email" v-slot="{ componentField }">
 						<FormItem class="grid gap-2">
-							<FormLabel>email</FormLabel>
+							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input id="email" type="email" placeholder="m@example.com" />
+								<Input
+									id="email"
+									type="email"
+									placeholder="m@example.com"
+									v-bind="componentField"
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					</FormField>
 
-					<FormField name="Email" v-slot="{ componentField }">
+					<FormField name="password" v-slot="{ componentField }">
 						<FormItem class="grid gap-2">
 							<FormLabel class="flex items-center"
-								>password
+								>Password
 								<a
 									href="/forgot-password"
 									class="ml-auto inline-block text-sm underline"
@@ -61,7 +66,12 @@ const onSubmit = handleSubmit((values) => {
 								</a>
 							</FormLabel>
 							<FormControl>
-								<Input id="password" type="password" placeholder="password" />
+								<Input
+									id="password"
+									type="password"
+									placeholder="password"
+									v-bind="componentField"
+								/>
 							</FormControl>
 						</FormItem>
 					</FormField>
