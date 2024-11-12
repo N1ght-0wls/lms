@@ -58,12 +58,11 @@ const onSubmit = handleSubmit((values) => {
 						<FormItem class="grid gap-2">
 							<FormLabel class="flex items-center"
 								>Password
-								<a
-									href="/forgot-password"
+								<RouterLink
 									class="ml-auto inline-block text-sm underline"
+									to="/reset"
+									>Forgot your password?</RouterLink
 								>
-									Forgot your password?
-								</a>
 							</FormLabel>
 							<FormControl>
 								<Input
