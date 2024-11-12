@@ -33,9 +33,11 @@ const onSubmit = handleSubmit((values) => {
 		<div class="flex items-center justify-center py-12">
 			<div class="mx-auto grid w-[350px] gap-6">
 				<CardHeader class="grid gap-2 text-center">
-					<CardTitle class="text-3xl font-bold">Login</CardTitle>
+					<CardTitle class="text-3xl font-bold"
+						>Forgot your password?</CardTitle
+					>
 					<CardDescription class="text-balance text-muted-foreground">
-						Enter your email below to login to your account
+						Enter your email below to reset password
 					</CardDescription>
 				</CardHeader>
 				<form class="grid gap-4" @submit="onSubmit">
@@ -53,34 +55,8 @@ const onSubmit = handleSubmit((values) => {
 							<FormMessage />
 						</FormItem>
 					</FormField>
-
-					<FormField name="password" v-slot="{ componentField }">
-						<FormItem class="grid gap-2">
-							<FormLabel class="flex items-center"
-								>Password
-								<a
-									href="/forgot-password"
-									class="ml-auto inline-block text-sm underline"
-								>
-									Forgot your password?
-								</a>
-							</FormLabel>
-							<FormControl>
-								<Input
-									id="password"
-									type="password"
-									placeholder="password"
-									v-bind="componentField"
-								/>
-							</FormControl>
-						</FormItem>
-					</FormField>
-					<Button type="submit" class="w-full"> Login </Button>
+					<Button type="submit" class="w-full"> Reset </Button>
 				</form>
-				<div class="mt-4 text-center text-sm">
-					Don't have an account?
-					<RouterLink class="underline" to="/signup">Sign up</RouterLink>
-				</div>
 			</div>
 		</div>
 		<div class="hidden bg-muted lg:block">
