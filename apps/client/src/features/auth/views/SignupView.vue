@@ -92,7 +92,6 @@ const onSubmit = handleSubmit((values) => {
 					</FormItem>
 				</FormField>
 				<Button type="submit" class="w-full"> Create an account </Button>
-				<Button variant="outline" class="w-full"> Sign up with GitHub </Button>
 			</form>
 			<div class="mt-4 text-center text-sm">
 				Already have an account?
