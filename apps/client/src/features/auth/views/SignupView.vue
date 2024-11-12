@@ -65,7 +65,7 @@ const onSubmit = handleSubmit((values) => {
 						</FormItem>
 					</FormField>
 				</div>
-				<FormField name="lastName" v-slot="{ componentField }">
+				<FormField name="email" v-slot="{ componentField }">
 					<FormItem class="grid gap-2">
 						<FormLabel>Email</FormLabel>
 						<FormControl>
@@ -78,7 +78,7 @@ const onSubmit = handleSubmit((values) => {
 						</FormControl>
 					</FormItem>
 				</FormField>
-				<FormField name="lastName" v-slot="{ componentField }">
+				<FormField name="password" v-slot="{ componentField }">
 					<FormItem class="grid gap-2">
 						<FormLabel>Password</FormLabel>
 						<FormControl>
@@ -95,7 +95,7 @@ const onSubmit = handleSubmit((values) => {
 			</form>
 			<div class="mt-4 text-center text-sm">
 				Already have an account?
-				<a href="#" class="underline"> Sign in </a>
+				<RouterLink class="underline" to="/login">Sign in</RouterLink>
 			</div>
 		</CardContent>
 	</Card>

@@ -79,7 +79,7 @@ const onSubmit = handleSubmit((values) => {
 				</form>
 				<div class="mt-4 text-center text-sm">
 					Don't have an account?
-					<a href="#" class="underline"> Sign up </a>
+					<RouterLink class="underline" to="/signup">Sign up</RouterLink>
 				</div>
 			</div>
 		</div>
