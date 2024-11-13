@@ -30,8 +30,8 @@ const onSubmit = handleSubmit((values) => {
 
 <template>
 	<Card class="mx-auto my-auto max-w-sm">
-		<CardHeader>
-			<CardTitle class="text-xl"> Sign Up </CardTitle>
+		<CardHeader class="grid gap-2 text-center">
+			<CardTitle class="text-3xl font-bold"> Sign Up </CardTitle>
 			<CardDescription>
 				Enter your information to create an account
 			</CardDescription>
