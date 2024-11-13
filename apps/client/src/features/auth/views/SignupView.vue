@@ -29,7 +29,7 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-	<Card class="mx-auto max-w-sm">
+	<Card class="mx-auto my-auto max-w-sm">
 		<CardHeader>
 			<CardTitle class="text-xl"> Sign Up </CardTitle>
 			<CardDescription>
