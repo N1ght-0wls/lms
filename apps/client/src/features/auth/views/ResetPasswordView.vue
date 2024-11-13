@@ -31,7 +31,7 @@ const onSubmit = handleSubmit((values) => {
 <template>
 	<div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2xl:min-h-[800px]">
 		<div class="flex items-center justify-center py-12">
-			<div class="mx-auto grid w-[350px] gap-6">
+			<Card class="mx-auto grid w-[350px] gap-6">
 				<CardHeader class="grid gap-2 text-center">
 					<CardTitle class="text-3xl font-bold"
 						>Forgot your password?</CardTitle
@@ -40,24 +40,26 @@ const onSubmit = handleSubmit((values) => {
 						Enter your email below to reset password
 					</CardDescription>
 				</CardHeader>
-				<form class="grid gap-4" @submit="onSubmit">
-					<FormField name="email" v-slot="{ componentField }">
-						<FormItem class="grid gap-2">
-							<FormLabel>Email</FormLabel>
-							<FormControl>
-								<Input
-									id="email"
-									type="email"
-									placeholder="m@example.com"
-									v-bind="componentField"
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					</FormField>
-					<Button type="submit" class="w-full"> Reset </Button>
-				</form>
-			</div>
+				<CardContent>
+					<form class="grid gap-4" @submit="onSubmit">
+						<FormField name="email" v-slot="{ componentField }">
+							<FormItem class="grid gap-2">
+								<FormLabel>Email</FormLabel>
+								<FormControl>
+									<Input
+										id="email"
+										type="email"
+										placeholder="m@example.com"
+										v-bind="componentField"
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						</FormField>
+						<Button type="submit" class="w-full"> Reset </Button>
+					</form>
+				</CardContent>
+			</Card>
 		</div>
 	</div>
 </template>
