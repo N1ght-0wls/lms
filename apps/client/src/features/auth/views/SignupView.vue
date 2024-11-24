@@ -17,14 +17,29 @@ import {
 import { Input } from '@/core/components/ui/input'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { CREATE_USER_SCHEMA } from '@awesome-lms/shared'
+import { CREATE_USER_SCHEMA, isStringEmpty } from '@awesome-lms/shared'
+import { useSignup } from '../composables/useSignup'
+import { computed } from 'vue'
 
 const { handleSubmit, values } = useForm({
 	validationSchema: toTypedSchema(CREATE_USER_SCHEMA),
 })
 
-const onSubmit = handleSubmit((values) => {
-	console.log(values)
+const { mutateAsync, isPending } = useSignup()
+
+const onSubmit = handleSubmit(async (data) => {
+	mutateAsync(data)
+})
+
+const isDisabled = computed(() => {
+	return (
+		isStringEmpty(values.email) ||
+		isStringEmpty(values.firstName) ||
+		isStringEmpty(values.lastName) ||
+		isStringEmpty(values.password) ||
+		isStringEmpty(values.username) ||
+		isPending
+	)
 })
 </script>
 
@@ -91,7 +106,9 @@ const onSubmit = handleSubmit((values) => {
 						</FormControl>
 					</FormItem>
 				</FormField>
-				<Button type="submit" class="w-full"> Create an account </Button>
+				<Button class="w-full" :disabled="isDisabled">
+					Create an account
+				</Button>
 			</form>
 			<div class="mt-4 text-center text-sm">
 				Already have an account?
