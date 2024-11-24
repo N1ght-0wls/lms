@@ -20,12 +20,13 @@ import { useForm } from 'vee-validate'
 import { isStringEmpty, LOGIN_SCHEMA } from '@awesome-lms/shared'
 import { useLogin } from '../composables/useLogin'
 import { computed } from 'vue'
+import { getFormError } from '@/core/utils'
 
 const { handleSubmit, values } = useForm({
 	validationSchema: toTypedSchema(LOGIN_SCHEMA),
 })
 
-const { mutateAsync, isPending } = useLogin()
+const { mutateAsync, isPending, error, isError } = useLogin()
 
 const onSubmit = handleSubmit(async (data) => {
 	mutateAsync(data)
@@ -38,6 +39,8 @@ const isDisabled = computed(() => {
 		isPending.value
 	)
 })
+
+const formError = getFormError(error, isError)
 </script>
 
 <template>
@@ -87,6 +90,9 @@ const isDisabled = computed(() => {
 								</FormControl>
 							</FormItem>
 						</FormField>
+						<p v-if="formError" class="text-destructive">
+							{{ formError }}
+						</p>
 						<Button class="w-full" :disabled="isDisabled">Login</Button>
 					</form>
 					<div class="mt-4 text-center text-sm">

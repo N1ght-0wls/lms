@@ -20,12 +20,13 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { CREATE_USER_SCHEMA, isStringEmpty } from '@awesome-lms/shared'
 import { useSignup } from '../composables/useSignup'
 import { computed } from 'vue'
+import { getFormError } from '@/core/utils'
 
 const { handleSubmit, values } = useForm({
 	validationSchema: toTypedSchema(CREATE_USER_SCHEMA),
 })
 
-const { mutateAsync, isPending } = useSignup()
+const { mutateAsync, isPending, error, isError } = useSignup()
 
 const onSubmit = handleSubmit(async (data) => {
 	mutateAsync(data)
@@ -41,6 +42,8 @@ const isDisabled = computed(() => {
 		isPending
 	)
 })
+
+const formError = getFormError(error, isError)
 </script>
 
 <template>
@@ -106,6 +109,7 @@ const isDisabled = computed(() => {
 						</FormControl>
 					</FormItem>
 				</FormField>
+				<p v-if="formError" class="text-destructive">{{ formError }}</p>
 				<Button class="w-full" :disabled="isDisabled">
 					Create an account
 				</Button>
