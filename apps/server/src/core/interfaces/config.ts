@@ -7,8 +7,13 @@ interface AuthConfig {
 	cookieSecret: string
 }
 
-interface Config {
-	auth: AuthConfig
+interface DbConfig {
+	url: string
 }
 
-export type { AuthConfig, Config }
+interface Config {
+	auth: AuthConfig
+	db: DbConfig
+}
+
+export type { AuthConfig, Config, DbConfig }

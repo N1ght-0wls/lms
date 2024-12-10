@@ -4,25 +4,25 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyJwt from '@fastify/jwt'
+import fastifyRateLimit from '@fastify/rate-limit'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastify from 'fastify'
 import {
 	ZodTypeProvider,
+	createJsonSchemaTransform,
 	serializerCompiler,
 	validatorCompiler,
 } from 'fastify-type-provider-zod'
 import type http from 'node:http'
+import { nonUserGuard } from './core/guards/nonUser.js'
+import { tokenGuard } from './core/guards/token.js'
 import { registerDependencies } from './infrastructure/parentDiConfig.js'
-import fastifyRateLimit from '@fastify/rate-limit'
-import fastifySwaggerUi from '@fastify/swagger-ui'
-import fastifySwagger from '@fastify/swagger'
-import { createJsonSchemaTransform } from 'fastify-type-provider-zod'
-import { AppInstanse } from './types/index.js'
 import { env } from './env.js'
 import { getRoutes } from './modules/routes.js'
-import { tokenGuard } from './guards/token.js'
-import { nonUserGuard } from './guards/nonUser.js'
+import { AppInstance } from './core/types/index.js'
 
-export const getApp = async (): Promise<AppInstanse> => {
+export const getApp = async (): Promise<AppInstance> => {
 	const app = fastify<http.Server, http.IncomingMessage, http.ServerResponse>({
 		logger: {
 			transport: {

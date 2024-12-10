@@ -1,9 +1,9 @@
-import { Routes } from '@/interfaces/index.js'
-import { AppInstanse } from '@/types/index.js'
+import { Routes } from '@/core/interfaces/index.js'
+import { AppInstance } from '@/core/types/index.js'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { getAuthRoutes } from './auth/routes/index.js'
 
-export const getRoutes = (app: AppInstanse): Routes => {
+export const getRoutes = (app: AppInstance): Routes => {
 	const { routes: authRoutes } = getAuthRoutes(app)
 
 	return {

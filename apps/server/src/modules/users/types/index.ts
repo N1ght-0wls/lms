@@ -1,4 +1,4 @@
-import { BaseDiConfig, InjectableDependencies } from '@/types/index.js'
+import { BaseDiConfig, InjectableDependencies } from '@/core/types/index.js'
 import { UsersModuleDependencies } from '../interfaces/index.js'
 
 type UsersInjectableDependencies =

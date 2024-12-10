@@ -1,8 +1,10 @@
+import { DatabaseClient } from '@/core/types/index.js'
+import { users } from '@/db/index.js'
+import { User } from '@/db/types.js'
+import { CREATE_USER_SCHEMA_TYPE } from '@awesome-lms/shared'
 import { SQL, eq } from 'drizzle-orm'
-import { DatabaseClient, User, roles, userRoles, users } from '@awesome-lms/db'
 import { IUsersRepository } from '../interfaces/index.js'
 import { UsersInjectableDependencies } from '../types/index.js'
-import { CREATE_USER_SCHEMA_TYPE, Role } from '@awesome-lms/shared'
 
 export class UsersRepository implements IUsersRepository {
 	private readonly db: DatabaseClient
@@ -24,36 +26,23 @@ export class UsersRepository implements IUsersRepository {
 
 		const result = await this.db
 			.insert(users)
-			.values({ ...data, img: '/' })
+			.values({ ...data, img: '/', role: hasFirst ? 'user' : 'admin' })
 			.returning()
 
 		const user = result.at(0)
 
 		if (!user) return null
 
-		const roleId = hasFirst.length ? 2 : 1
-
-		await this.db.insert(userRoles).values({ userId: user.id, roleId })
-
-		return {
-			...user,
-			roles: [hasFirst.length ? 'user' : 'admin'],
-		}
+		return user
 	}
 
 	private async findOneBy(condition: SQL<unknown>): Promise<User | null> {
-		const result = await this.db
-			.select()
-			.from(users)
-			.leftJoin(userRoles, eq(users.id, userRoles.userId))
-			.leftJoin(roles, eq(userRoles.roleId, roles.id))
-			.where(condition)
+		const result = await this.db.select().from(users).where(condition)
 
-		if (!result.length) return null
+		const user = result.at(0)
 
-		return {
-			...result[0]?.users,
-			roles: result.map((item) => item.roles?.name as Role),
-		} as User
+		if (!user) return null
+
+		return user
 	}
 }

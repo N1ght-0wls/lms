@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 type GuardRule = 'include' | 'exclude'
 
-export const createRoleGuard = (roles: Role[], rule: GuardRule = 'include') => {
+export const createRoleGuard = (role: Role, rule: GuardRule = 'include') => {
 	return async (
 		request: FastifyRequest,
 		reply: FastifyReply,
@@ -14,7 +14,7 @@ export const createRoleGuard = (roles: Role[], rule: GuardRule = 'include') => {
 			return reply.status(401).send({ message: 'Authentification required' })
 		}
 
-		const condition = roles.some((role) => user.roles.includes(role))
+		const condition = role === user.role
 
 		if (rule === 'include' ? !condition : condition) {
 			return reply.status(401).send({ message: 'Access denied' })

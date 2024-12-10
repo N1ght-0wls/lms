@@ -1,3 +1,3 @@
-import { createRoleGuard } from '@/factories/index.js'
+import { createRoleGuard } from '@/core/factories/index.js'
 
 export const nonUserGuard = createRoleGuard(['user'], 'exclude')

@@ -1,4 +1,4 @@
-import { AuthConfig } from '@/interfaces/config.js'
+import { AuthConfig } from '@/core/interfaces/config.js'
 import { hash, verify } from '@node-rs/argon2'
 import { IAuthService } from '../interfaces/index.js'
 import { AuthInjectableDependencies } from '../types/index.js'
