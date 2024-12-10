@@ -11,7 +11,7 @@ const getAuthConfig = (): AuthConfig => ({
 })
 
 const getDbConfig = (): DbConfig => ({
-	dbUrl: env.DATABASE_URL,
+	url: env.DATABASE_URL,
 })
 
 const getConfig = (): Config => ({
