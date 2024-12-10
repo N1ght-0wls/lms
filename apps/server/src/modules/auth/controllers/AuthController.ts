@@ -12,11 +12,13 @@ export const login = async (
 	const { email, password } = request.body
 	const { authService, usersRepository } = request.diScope.cradle
 
-	const user = await usersRepository.findOneByEmail(email)
+	const result = await usersRepository.findOneByEmail(email)
 
-	if (!user) {
+	if (!result.success) {
 		return reply.status(400).send({ message: 'Invalid email or password' })
 	}
+
+	const user = result.value
 
 	const isPasswordMatch = await authService.verifyPassword(
 		password,
@@ -54,7 +56,7 @@ export const signup = async (
 
 	const isExist = await usersRepository.findOneByEmail(email)
 
-	if (isExist) {
+	if (isExist.success) {
 		return reply
 			.status(400)
 			.send({ message: 'User with such email already exists' })
