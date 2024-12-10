@@ -1,5 +1,5 @@
 import { env } from '@/env.js'
-import { AuthConfig, Config } from '@/interfaces/config.js'
+import { AuthConfig, Config, DbConfig } from '@/core/interfaces/config.js'
 
 const getAuthConfig = (): AuthConfig => ({
 	memoryCost: env.MEMORY_COST,
@@ -10,8 +10,13 @@ const getAuthConfig = (): AuthConfig => ({
 	cookieSecret: env.COOKIE_SECRET,
 })
 
+const getDbConfig = (): DbConfig => ({
+	dbUrl: env.DATABASE_URL,
+})
+
 const getConfig = (): Config => ({
 	auth: getAuthConfig(),
+	db: getDbConfig(),
 })
 
 export { getConfig }

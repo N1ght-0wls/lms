@@ -31,7 +31,7 @@ export const login = async (
 		id: user.id,
 		email: user.email,
 		username: user.username,
-		roles: user.roles,
+		role: user.role,
 	}
 
 	const token = request.jwt.sign(payload)

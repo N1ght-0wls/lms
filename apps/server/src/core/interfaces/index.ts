@@ -1,17 +1,19 @@
-import { AppInstanse, Route } from '@/types/index.js'
-import { DatabaseClient, Sql } from '@awesome-lms/db'
+import * as schema from '@/db/index.js'
+import { AppInstance, Route } from '@/core/types/index.js'
+import { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import { Sql } from 'postgres'
 import { Config } from './config.js'
 
 interface CommonDependencies {
 	db: {
 		connection: Sql
-		client: DatabaseClient
+		client: PostgresJsDatabase<typeof schema>
 	}
 	config: Config
 }
 
 interface ExternalDependencies {
-	app: AppInstanse
+	app: AppInstance
 }
 
 interface Routes {

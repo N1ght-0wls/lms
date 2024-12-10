@@ -1,4 +1,4 @@
-import { User } from '@awesome-lms/db'
+import { User } from '@/db/types.js'
 import { CREATE_USER_SCHEMA_TYPE } from '@awesome-lms/shared'
 
 interface IUsersRepository {

@@ -1,4 +1,4 @@
-import { Routes } from '@/interfaces/index.js'
+import { Routes } from '@/core/interfaces/index.js'
 import {
 	authorize,
 	login,
@@ -6,9 +6,9 @@ import {
 	signup,
 } from '../controllers/AuthController.js'
 import { CREATE_USER_SCHEMA, LOGIN_SCHEMA } from '@awesome-lms/shared'
-import { AppInstanse } from '@/types/index.js'
+import { AppInstance } from '@/core/types/index.js'
 
-export const getAuthRoutes = (app: AppInstanse): Routes => ({
+export const getAuthRoutes = (app: AppInstance): Routes => ({
 	routes: [
 		{
 			method: 'POST',

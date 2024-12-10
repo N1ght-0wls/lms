@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const envSchema = z.object({
+	DATABASE_URL: z.string(),
 	PORT: z.coerce.number().min(1000),
 	MEMORY_COST: z.coerce.number().positive(),
 	TIME_COST: z.coerce.number().positive(),

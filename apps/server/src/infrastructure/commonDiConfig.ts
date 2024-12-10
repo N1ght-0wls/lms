@@ -1,14 +1,24 @@
-import { CommonDependencies } from '@/interfaces/index.js'
-import { NameAndRegistrationPair, asFunction } from 'awilix'
-import { client, queryClient } from '@awesome-lms/db'
+import { SINGLETON_CONFIG } from '@/core/constants/config.js'
+import { CommonDependencies } from '@/core/interfaces/index.js'
+import { Lifetime, NameAndRegistrationPair, asFunction } from 'awilix'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 import { getConfig } from './config.js'
-import { SINGLETON_CONFIG } from '@/constants/config.js'
+import * as schema from '@/db/index.js'
 
 export const resolveCommonDependencies =
 	(): NameAndRegistrationPair<CommonDependencies> => ({
 		config: asFunction(() => getConfig(), SINGLETON_CONFIG),
 		db: asFunction(
-			() => {
+			({ config }: CommonDependencies) => {
+				const queryClient = postgres(config.db.url)
+
+				const client = drizzle(queryClient, {
+					schema,
+					casing: 'snake_case',
+					logger: true,
+				})
+
 				return {
 					client,
 					connection: queryClient,
@@ -18,6 +28,7 @@ export const resolveCommonDependencies =
 				dispose: ({ connection }) => {
 					connection.end()
 				},
+				lifetime: Lifetime.SINGLETON,
 			},
 		),
 	})

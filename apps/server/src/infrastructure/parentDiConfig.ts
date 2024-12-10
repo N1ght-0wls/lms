@@ -1,4 +1,4 @@
-import { CommonDependencies } from '@/interfaces/index.js'
+import { CommonDependencies } from '@/core/interfaces/index.js'
 import { AwilixContainer, NameAndRegistrationPair } from 'awilix'
 import { resolveCommonDependencies } from './commonDiConfig.js'
 import { resolveUsersModule } from '@/modules/users/index.js'
