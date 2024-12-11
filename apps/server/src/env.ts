@@ -9,6 +9,8 @@ export const envSchema = z.object({
 	PARALLELISM: z.coerce.number().min(1),
 	JWT_SECRET: z.string(),
 	COOKIE_SECRET: z.string(),
+	SUPABASE_URL: z.string(),
+	SUPABASE_KEY: z.string(),
 })
 
 const env = envSchema.parse(process.env)

@@ -28,7 +28,7 @@ export class UsersRepository implements IUsersRepository {
 
 			const result = await this.db
 				.insert(users)
-				.values({ ...data, img: '/', role: hasFirst ? 'user' : 'admin' })
+				.values({ ...data, img: '/', role: hasFirst.length ? 'user' : 'admin' })
 				.returning()
 
 			const user = result.at(0) as User

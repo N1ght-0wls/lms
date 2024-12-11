@@ -3,6 +3,7 @@ import { AppInstance, Route } from '@/core/types/index.js'
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 import { Sql } from 'postgres'
 import { Config } from './config.js'
+import { SupabaseClient } from '@supabase/supabase-js'
 
 interface CommonDependencies {
 	db: {
@@ -10,6 +11,7 @@ interface CommonDependencies {
 		client: PostgresJsDatabase<typeof schema>
 	}
 	config: Config
+	supabase: SupabaseClient
 }
 
 interface ExternalDependencies {

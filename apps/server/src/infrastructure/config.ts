@@ -1,5 +1,10 @@
 import { env } from '@/env.js'
-import { AuthConfig, Config, DbConfig } from '@/core/interfaces/config.js'
+import {
+	AuthConfig,
+	Config,
+	DbConfig,
+	SupabaseConfig,
+} from '@/core/interfaces/config.js'
 
 const getAuthConfig = (): AuthConfig => ({
 	memoryCost: env.MEMORY_COST,
@@ -14,9 +19,15 @@ const getDbConfig = (): DbConfig => ({
 	url: env.DATABASE_URL,
 })
 
+export const getSupabaseConfig = (): SupabaseConfig => ({
+	url: env.SUPABASE_URL,
+	key: env.SUPABASE_KEY,
+})
+
 const getConfig = (): Config => ({
 	auth: getAuthConfig(),
 	db: getDbConfig(),
+	supabase: getSupabaseConfig(),
 })
 
 export { getConfig }
