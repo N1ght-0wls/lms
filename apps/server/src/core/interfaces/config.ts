@@ -11,9 +11,15 @@ interface DbConfig {
 	url: string
 }
 
+interface SupabaseConfig {
+	url: string
+	key: string
+}
+
 interface Config {
 	auth: AuthConfig
 	db: DbConfig
+	supabase: SupabaseConfig
 }
 
-export type { AuthConfig, Config, DbConfig }
+export type { AuthConfig, Config, DbConfig, SupabaseConfig }

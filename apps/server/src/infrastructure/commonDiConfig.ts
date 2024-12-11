@@ -5,6 +5,7 @@ import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 import { getConfig } from './config.js'
 import * as schema from '@/db/index.js'
+import { createClient } from '@supabase/supabase-js'
 
 export const resolveCommonDependencies =
 	(): NameAndRegistrationPair<CommonDependencies> => ({
@@ -31,4 +32,9 @@ export const resolveCommonDependencies =
 				lifetime: Lifetime.SINGLETON,
 			},
 		),
+		supabase: asFunction(({ config }: CommonDependencies) => {
+			const { url, key } = config.supabase
+
+			return createClient(url, key)
+		}),
 	})
