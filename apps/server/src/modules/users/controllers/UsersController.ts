@@ -1,8 +1,14 @@
-import { GET_BY_ID_SCHEMA_TYPE } from '@awesome-lms/shared'
+import {
+	COURSES_QUERY_SCHEMA_TYPE,
+	GET_BY_ID_SCHEMA_TYPE,
+} from '@awesome-lms/shared'
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 export const getCourses = async (
-	request: FastifyRequest<{ Params: GET_BY_ID_SCHEMA_TYPE }>,
+	request: FastifyRequest<{
+		Params: GET_BY_ID_SCHEMA_TYPE
+		Querystring: COURSES_QUERY_SCHEMA_TYPE
+	}>,
 	reply: FastifyReply,
 ): Promise<void> => {
 	const { id } = request.params
@@ -16,7 +22,11 @@ export const getCourses = async (
 
 	const user = isExist.value
 
-	const courses = await usersRepository.findCourses(id, user.role)
+	const courses = await usersRepository.findCourses({
+		id,
+		role: user.role,
+		query: request.query,
+	})
 
 	return reply.status(200).send(courses)
 }

@@ -1,4 +1,5 @@
 import { DatabaseClient } from '@/core/types/index.js'
+import { Failure, Result, Success } from '@/core/utils/result.js'
 import {
 	courseParticipants,
 	courses,
@@ -6,11 +7,10 @@ import {
 	users,
 } from '@/db/index.js'
 import { Course, User } from '@/db/types.js'
-import { CREATE_USER_SCHEMA_TYPE, Role } from '@awesome-lms/shared'
-import { SQL, and, eq, getTableColumns } from 'drizzle-orm'
-import { IUsersRepository } from '../interfaces/index.js'
+import { CREATE_USER_SCHEMA_TYPE } from '@awesome-lms/shared'
+import { SQL, and, eq, getTableColumns, gte, lt } from 'drizzle-orm'
+import { FindCoursesArgs, IUsersRepository } from '../interfaces/index.js'
 import { UsersInjectableDependencies } from '../types/index.js'
-import { Failure, Result, Success } from '@/core/utils/result.js'
 
 export class UsersRepository implements IUsersRepository {
 	private readonly db: DatabaseClient
@@ -27,21 +27,29 @@ export class UsersRepository implements IUsersRepository {
 		return this.findOneBy(eq(users.email, email))
 	}
 
-	async findCourses(id: number, role: Role): Promise<Course[]> {
+	async findCourses({ id, role, query }: FindCoursesArgs): Promise<Course[]> {
 		const columns = getTableColumns(courses)
 
 		const pariticipantRole = role === 'user' ? 'student' : 'teacher'
+
+		const expressions = [
+			eq(courseParticipants.userId, id),
+			eq(courseParticipants.role, pariticipantRole),
+		]
+
+		if (query) {
+			if (query.active) {
+				expressions.push(gte(courses.endedAt, new Date()))
+			} else {
+				expressions.push(lt(courses.endedAt, new Date()))
+			}
+		}
 
 		return this.db
 			.select({ ...columns })
 			.from(courses)
 			.leftJoin(courseParticipants, eq(courses.id, courseParticipants.courseId))
-			.where(
-				and(
-					eq(courseParticipants.userId, id),
-					eq(courseParticipants.role, pariticipantRole),
-				),
-			)
+			.where(and(...expressions))
 	}
 
 	async findStarredCourses(id: number): Promise<Course[]> {

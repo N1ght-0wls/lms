@@ -3,7 +3,7 @@ import {
 	getCourses,
 	getStarredCourses,
 } from '../controllers/UsersController.js'
-import { GET_BY_ID_SCHEMA } from '@awesome-lms/shared'
+import { COURSES_QUERY_SCHEMA, GET_BY_ID_SCHEMA } from '@awesome-lms/shared'
 
 export const getUsersRoutes = (): Routes => ({
 	routes: [
@@ -13,6 +13,7 @@ export const getUsersRoutes = (): Routes => ({
 			handler: getCourses,
 			schema: {
 				params: GET_BY_ID_SCHEMA,
+				querystring: COURSES_QUERY_SCHEMA,
 			},
 		},
 		{
