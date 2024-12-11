@@ -3,6 +3,7 @@ import { relations } from 'drizzle-orm'
 import { pgEnum, pgTable, varchar } from 'drizzle-orm/pg-core'
 import { courseParticipants } from './courseParticipants.js'
 import { groupParticipants } from './groupParticipants.js'
+import { starredCourses } from './starredCourses.js'
 
 const { id } = baseTableAttrs
 
@@ -22,4 +23,5 @@ export const users = pgTable('users', {
 export const usersRelations = relations(users, ({ many }) => ({
 	groups: many(groupParticipants),
 	courses: many(courseParticipants),
+	starredCourses: many(starredCourses),
 }))

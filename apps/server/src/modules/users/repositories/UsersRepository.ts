@@ -1,5 +1,10 @@
 import { DatabaseClient } from '@/core/types/index.js'
-import { courseParticipants, courses, users } from '@/db/index.js'
+import {
+	courseParticipants,
+	courses,
+	starredCourses,
+	users,
+} from '@/db/index.js'
 import { Course, User } from '@/db/types.js'
 import { CREATE_USER_SCHEMA_TYPE, Role } from '@awesome-lms/shared'
 import { SQL, and, eq, getTableColumns } from 'drizzle-orm'
@@ -22,6 +27,31 @@ export class UsersRepository implements IUsersRepository {
 		return this.findOneBy(eq(users.email, email))
 	}
 
+	async findCourses(id: number, role: Role): Promise<Course[]> {
+		const columns = getTableColumns(courses)
+
+		const pariticipantRole = role === 'user' ? 'student' : 'teacher'
+
+		return this.db
+			.select({ ...columns })
+			.from(courses)
+			.leftJoin(courseParticipants, eq(courses.id, courseParticipants.courseId))
+			.where(
+				and(
+					eq(courseParticipants.userId, id),
+					eq(courseParticipants.role, pariticipantRole),
+				),
+			)
+	}
+
+	async findStarredCourses(id: number): Promise<Course[]> {
+		return this.db
+			.select({ ...getTableColumns(courses) })
+			.from(courses)
+			.leftJoin(starredCourses, eq(starredCourses.courseId, courses.id))
+			.where(eq(starredCourses.userId, id))
+	}
+
 	async createOne(data: CREATE_USER_SCHEMA_TYPE): Promise<Result<User, null>> {
 		try {
 			const hasFirst = await this.db.select().from(users).limit(1)
@@ -38,23 +68,6 @@ export class UsersRepository implements IUsersRepository {
 		} catch (e) {
 			return Failure(null)
 		}
-	}
-
-	async findCourses(id: number, role: Role): Promise<Course[]> {
-		const columns = getTableColumns(courses)
-
-		const pariticipantRole = role === 'user' ? 'student' : 'teacher'
-
-		return this.db
-			.select({ ...columns })
-			.from(courses)
-			.leftJoin(courseParticipants, eq(courses.id, courseParticipants.courseId))
-			.where(
-				and(
-					eq(courseParticipants.userId, id),
-					eq(courseParticipants.role, pariticipantRole),
-				),
-			)
 	}
 
 	private async findOneBy(

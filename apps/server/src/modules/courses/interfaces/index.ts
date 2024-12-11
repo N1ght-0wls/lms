@@ -8,6 +8,8 @@ interface ICoursesRepository {
 	createOne: (
 		data: CREATE_COURSE_SCHEMA_TYPE,
 	) => Promise<Result<Course, HttpError>>
+	starOne: (id: number, userId: number) => Promise<void>
+	unstarOne: (id: number, userId: number) => Promise<void>
 }
 
 interface CoursesModuleDependencies {

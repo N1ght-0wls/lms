@@ -38,3 +38,43 @@ export const createCourse = async (
 
 	return reply.status(200).send(result.value)
 }
+
+export const starCourse = async (
+	request: FastifyRequest<{ Params: GET_BY_ID_SCHEMA_TYPE }>,
+	reply: FastifyReply,
+): Promise<void> => {
+	const { id } = request.params
+	const { coursesRepository } = request.diScope.cradle
+
+	const course = await coursesRepository.findOne(id)
+
+	if (!course.success) {
+		const { status, message } = course.error
+
+		return reply.status(status).send({ message })
+	}
+
+	await coursesRepository.starOne(id, request.user.id)
+
+	return reply.status(200).send(course.value)
+}
+
+export const unstarCourse = async (
+	request: FastifyRequest<{ Params: GET_BY_ID_SCHEMA_TYPE }>,
+	reply: FastifyReply,
+): Promise<void> => {
+	const { id } = request.params
+	const { coursesRepository } = request.diScope.cradle
+
+	const course = await coursesRepository.findOne(id)
+
+	if (!course.success) {
+		const { status, message } = course.error
+
+		return reply.status(status).send({ message })
+	}
+
+	await coursesRepository.unstarOne(id, request.user.id)
+
+	return reply.status(200).send(course.value)
+}

@@ -1,10 +1,10 @@
 import { HttpError } from '@/core/interfaces/index.js'
 import { DatabaseClient } from '@/core/types/index.js'
 import { Failure, Result, Success } from '@/core/utils/result.js'
-import { courses } from '@/db/index.js'
+import { courses, starredCourses } from '@/db/index.js'
 import { Course } from '@/db/types.js'
 import { CREATE_COURSE_SCHEMA_TYPE } from '@awesome-lms/shared'
-import { eq, sql } from 'drizzle-orm'
+import { and, eq, sql } from 'drizzle-orm'
 import { ICoursesRepository } from '../interfaces/index.js'
 import { CoursesInjectableDependencies } from '../types/index.js'
 
@@ -84,5 +84,17 @@ export class CoursesRepository implements ICoursesRepository {
 				message: 'Something went wrong',
 			})
 		}
+	}
+
+	async starOne(id: number, userId: number): Promise<void> {
+		await this.db.insert(starredCourses).values({ courseId: id, userId })
+	}
+
+	async unstarOne(id: number, userId: number): Promise<void> {
+		await this.db
+			.delete(starredCourses)
+			.where(
+				and(eq(starredCourses.courseId, id), eq(starredCourses.userId, userId)),
+			)
 	}
 }
