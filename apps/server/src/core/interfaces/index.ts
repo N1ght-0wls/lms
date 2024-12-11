@@ -18,8 +18,13 @@ interface ExternalDependencies {
 	app: AppInstance
 }
 
+interface HttpError {
+	status: number
+	message: string
+}
+
 interface Routes {
 	routes: Route[]
 }
 
-export type { CommonDependencies, ExternalDependencies, Routes }
+export type { CommonDependencies, ExternalDependencies, Routes, HttpError }

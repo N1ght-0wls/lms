@@ -21,6 +21,7 @@ export const courseParticipants = pgTable('course_participants', {
 	courseId: integer()
 		.notNull()
 		.references(() => courses.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+	role: courseRolesEnum().notNull().default('student'),
 })
 
 export const courseParticipantsRelations = relations(
