@@ -1,8 +1,8 @@
 import { DatabaseClient } from '@/core/types/index.js'
-import { users } from '@/db/index.js'
-import { User } from '@/db/types.js'
-import { CREATE_USER_SCHEMA_TYPE } from '@awesome-lms/shared'
-import { SQL, eq } from 'drizzle-orm'
+import { courseParticipants, courses, users } from '@/db/index.js'
+import { Course, User } from '@/db/types.js'
+import { CREATE_USER_SCHEMA_TYPE, Role } from '@awesome-lms/shared'
+import { SQL, and, eq, getTableColumns } from 'drizzle-orm'
 import { IUsersRepository } from '../interfaces/index.js'
 import { UsersInjectableDependencies } from '../types/index.js'
 import { Failure, Result, Success } from '@/core/utils/result.js'
@@ -38,6 +38,23 @@ export class UsersRepository implements IUsersRepository {
 		} catch (e) {
 			return Failure(null)
 		}
+	}
+
+	async findCourses(id: number, role: Role): Promise<Course[]> {
+		const columns = getTableColumns(courses)
+
+		const pariticipantRole = role === 'user' ? 'student' : 'teacher'
+
+		return this.db
+			.select({ ...columns })
+			.from(courses)
+			.leftJoin(courseParticipants, eq(courses.id, courseParticipants.courseId))
+			.where(
+				and(
+					eq(courseParticipants.userId, id),
+					eq(courseParticipants.role, pariticipantRole),
+				),
+			)
 	}
 
 	private async findOneBy(
