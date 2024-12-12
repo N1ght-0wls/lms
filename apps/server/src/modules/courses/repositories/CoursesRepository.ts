@@ -61,16 +61,14 @@ export class CoursesRepository implements ICoursesRepository {
 
 				await tx.execute(teachersQuery)
 
-				if (groups.length) {
-					const studentsQuery = sql`
-						insert into course_participants (user_id, group_id, course_id)
-						select gp.user_id, gp.group_id, ${course.id} as course_id
-						from group_participants gp
-						where gp.group_id in (${groups.join(',')})
-					`
+				const studentsQuery = sql`
+					insert into course_participants (user_id, group_id, course_id)
+					select gp.user_id, gp.group_id, ${course.id} as course_id
+					from group_participants gp
+					where gp.group_id in (${groups.join(',')})
+				`
 
-					await tx.execute(studentsQuery)
-				}
+				await tx.execute(studentsQuery)
 
 				return course
 			})
