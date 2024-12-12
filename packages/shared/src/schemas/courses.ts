@@ -6,8 +6,8 @@ const CREATE_COURSE_SCHEMA = z.object({
 	endedAt: z.string(),
 	areForumsEnabled: z.boolean(),
 	areAnnouncementsEnabled: z.boolean(),
-	teachers: z.number().array(),
-	groups: z.number().array(),
+	teachers: z.number().array().nonempty(),
+	groups: z.number().array().nonempty(),
 })
 
 type CREATE_COURSE_SCHEMA_TYPE = z.infer<typeof CREATE_COURSE_SCHEMA>
