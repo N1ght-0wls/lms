@@ -8,6 +8,7 @@ import {
 	varchar,
 } from 'drizzle-orm/pg-core'
 import { courseParticipants } from './courseParticipants.js'
+import { starredCourses } from './starredCourses.js'
 
 export const courses = pgTable(
 	'courses',
@@ -27,4 +28,5 @@ export const courses = pgTable(
 
 export const coursesRelations = relations(courses, ({ many }) => ({
 	participants: many(courseParticipants),
+	starredBy: many(starredCourses),
 }))

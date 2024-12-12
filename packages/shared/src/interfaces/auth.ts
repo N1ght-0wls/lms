@@ -8,7 +8,7 @@ interface JwtPayload {
 	id: number
 	email: string
 	username: string
-	roles: Role[]
+	role: Role
 }
 
 export type { AuthTokens, JwtPayload }

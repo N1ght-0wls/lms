@@ -1,11 +1,16 @@
 import { DatabaseClient } from '@/core/types/index.js'
-import { users } from '@/db/index.js'
-import { User } from '@/db/types.js'
-import { CREATE_USER_SCHEMA_TYPE } from '@awesome-lms/shared'
-import { SQL, eq } from 'drizzle-orm'
-import { IUsersRepository } from '../interfaces/index.js'
-import { UsersInjectableDependencies } from '../types/index.js'
 import { Failure, Result, Success } from '@/core/utils/result.js'
+import {
+	courseParticipants,
+	courses,
+	starredCourses,
+	users,
+} from '@/db/index.js'
+import { Course, User } from '@/db/types.js'
+import { CREATE_USER_SCHEMA_TYPE } from '@awesome-lms/shared'
+import { SQL, and, eq, getTableColumns, gte, lt } from 'drizzle-orm'
+import { FindCoursesArgs, IUsersRepository } from '../interfaces/index.js'
+import { UsersInjectableDependencies } from '../types/index.js'
 
 export class UsersRepository implements IUsersRepository {
 	private readonly db: DatabaseClient
@@ -20,6 +25,39 @@ export class UsersRepository implements IUsersRepository {
 
 	async findOneByEmail(email: string): Promise<Result<User, null>> {
 		return this.findOneBy(eq(users.email, email))
+	}
+
+	async findCourses({ id, role, query }: FindCoursesArgs): Promise<Course[]> {
+		const columns = getTableColumns(courses)
+
+		const pariticipantRole = role === 'user' ? 'student' : 'teacher'
+
+		const expressions = [
+			eq(courseParticipants.userId, id),
+			eq(courseParticipants.role, pariticipantRole),
+		]
+
+		if (query) {
+			if (query.active) {
+				expressions.push(gte(courses.endedAt, new Date()))
+			} else {
+				expressions.push(lt(courses.endedAt, new Date()))
+			}
+		}
+
+		return this.db
+			.select({ ...columns })
+			.from(courses)
+			.leftJoin(courseParticipants, eq(courses.id, courseParticipants.courseId))
+			.where(and(...expressions))
+	}
+
+	async findStarredCourses(id: number): Promise<Course[]> {
+		return this.db
+			.select({ ...getTableColumns(courses) })
+			.from(courses)
+			.leftJoin(starredCourses, eq(starredCourses.courseId, courses.id))
+			.where(eq(starredCourses.userId, id))
 	}
 
 	async createOne(data: CREATE_USER_SCHEMA_TYPE): Promise<Result<User, null>> {
